@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>BODY STYLE - بوفه آنلاین</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <style>
+    :root {
+      --primary-color: #ff8c00;
+      --primary-dark: #ff6a00;
+      --text-color: #fff;
+      --bg-dark: #0d0d0d;
+      --bg-light: rgba(255, 255, 255, 0.05);
+      --card-bg: rgba(255, 136, 0, 0.08);
+      --card-hover: rgba(255, 136, 0, 0.2);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg-dark), #1a1a1a);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .menu {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 140, 0, 0.5);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      position: relative;
+    }
+
+    .menu-header {
+      margin-bottom: 20px;
+    }
+
+    .menu h1 {
+      font-size: 55px;
+      margin: 0;
+      font-weight: bold;
+      color: rgba(255, 140, 0, 0.9);
+      text-shadow: 0 0 8px rgba(255, 140, 0, 0.8),
+                   0 0 15px rgba(255, 100, 0, 0.6);
+      animation: flicker 3s infinite;
+    }
+
+    .small {
+      font-size: 32px;
+      margin-top: -5px;
+      letter-spacing: 4px;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 
+          0 0 8px rgba(255, 140, 0, 0.9),
+          0 0 15px rgba(255, 100, 0, 0.6),
+          0 0 25px rgba(255, 80, 0, 0.4);
+      }
+      20%, 24%, 55% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .item {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 15px;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .item:hover {
+      background: var(--card-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(255, 136, 0, 0.3);
+    }
+
+    .item strong {
+      font-size: 18px;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+
+    .item span {
+      font-size: 15px;
+      color: #ffd580;
+    }
+
+    .item-actions {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      display: flex;
+      gap: 5px;
+    }
+
+    .item-btn {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .item:hover .item-btn {
+      opacity: 1;
+    }
+
+    .edit-btn {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .delete-btn {
+      background: #ff4757;
+      color: white;
+    }
+
+    /* دکمه افزودن محصول */
+    .add-product-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+    }
+
+    .add-product-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* پنل مدیریت */
+    .admin-panel {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      background: rgba(30, 30, 30, 0.95);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255, 140, 0, 0.7);
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .admin-panel h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .admin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .admin-form input {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--primary-color);
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .admin-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .admin-btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      font-family: 'Vazirmatn', sans-serif;
+      flex: 1;
+    }
+
+    .save-btn {
+      background: var(--primary-color);
+      color: black;
+    }
+
+    .save-btn:hover {
+      background: #ff9e2d;
+    }
+
+    .close-btn {
+      background: #555;
+      color: white;
+    }
+
+    .close-btn:hover {
+      background: #777;
+    }
+
+    .delete-panel-btn {
+      background: #ff4757;
+      color: white;
+    }
+
+    .delete-panel-btn:hover {
+      background: #ff6b7a;
+    }
+
+    .add-item-btn {
+      background: #28a745;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .add-item-btn:hover {
+      background: #34ce57;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+
+    /* استایل برای موبایل */
+    @media (max-width: 768px) {
+      .menu {
+        padding: 15px;
+      }
+      
+      .menu h1 {
+        font-size: 42px;
+      }
+      
+      .small {
+        font-size: 24px;
+      }
+      
+      .items {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+      }
+      
+      .item {
+        padding: 12px;
+      }
+      
+      .item strong {
+        font-size: 16px;
+      }
+      
+      .item span {
+        font-size: 13px;
+      }
+      
+      .admin-panel {
+        width: 95%;
+        padding: 15px;
+      }
+      
+      .admin-buttons {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .menu h1 {
+        font-size: 38px;
+      }
+      
+      .small {
+        font-size: 22px;
+      }
+      
+      .items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* استایل برای iOS */
+    @supports (-webkit-touch-callout: none) {
+      .menu {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+      
+      .admin-panel {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+      
+      .item {
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+
+    /* استایل برای مرورگرهای موبایل */
+    @media (hover: none) {
+      .item-btn {
+        opacity: 1;
+      }
+      
+      .item:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <div class="menu-header">
+        <h1>BODY</h1>
+        <h1 class="small">STYLE</h1>
+      </div>
+
+      <div class="items" id="itemsContainer">
+        <!-- آیتم ها توسط جاوااسکریپت اضافه خواهند شد -->
+      </div>
+
+      <button class="add-product-btn" id="addProductBtn">+ افزودن محصول جدید</button>
+    </div>
+  </div>
+
+  <!-- پنل مدیریت -->
+  <div class="overlay" id="adminOverlay"></div>
+  <div class="admin-panel" id="adminPanel">
+    <h2>پنل مدیریت محصول</h2>
+    <div class="admin-form">
+      <input type="text" id="itemName" placeholder="نام محصول">
+      <input type="number" id="itemPrice" placeholder="قیمت محصول (تومان)">
+      <div class="admin-buttons">
+        <button class="admin-btn save-btn" id="saveButton">ذخیره تغییرات</button>
+        <button class="admin-btn delete-panel-btn" id="deleteButton">حذف محصول</button>
+        <button class="admin-btn close-btn" id="closeButton">بستن</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // داده‌های نمونه
+    let prices = {
+      "ماکارونی": 25000,
+      "سیب زمینی تنوری": 30000,
+      "تخم مرغ آب‌پز": 15000,
+      "تن ماهی": 35000,
+      "شیر موز": 20000,
+      "شیک": 25000,
+      "فیله مرغ": 40000,
+      "کباب": 45000
+    };
+
+    let selectedItem = "";
+    let isNewItem = false;
+    let isWindows = false;
+
+    // تشخیص سیستم عامل
+    function detectOS() {
+      const userAgent = window.navigator.userAgent;
+      isWindows = userAgent.indexOf("Windows") !== -1;
+    }
+
+    // بارگذاری قیمت‌ها از localStorage یا استفاده از داده‌های پیش‌فرض
+    function loadPrices() {
+      const savedPrices = localStorage.getItem('menuPrices');
+      if (savedPrices) {
+        prices = JSON.parse(savedPrices);
+      }
+      
+      renderItems();
+    }
+
+    // ذخیره قیمت‌ها در localStorage
+    function savePrices() {
+      localStorage.setItem('menuPrices', JSON.stringify(prices));
+    }
+
+    // رندر کردن آیتم‌ها
+    function renderItems() {
+      const itemsContainer = document.getElementById('itemsContainer');
+      itemsContainer.innerHTML = '';
+      
+      for (const [name, price] of Object.entries(prices)) {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'item';
+        itemElement.setAttribute('data-name', name);
+        
+        itemElement.innerHTML = `
+          <div class="item-actions">
+            <button class="item-btn edit-btn" title="ویرایش">✏️</button>
+            ${isWindows ? '<button class="item-btn delete-btn" title="حذف">🗑️</button>' : ''}
+          </div>
+          <strong>${name}</strong> 
+          <span>${price.toLocaleString("fa-IR")} تومان</span>
+        `;
+        
+        // اضافه کردن رویداد برای دکمه ویرایش
+        itemElement.querySelector('.edit-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          openAdminPanel(name);
+        });
+        
+        // اضافه کردن رویداد برای دکمه حذف (فقط در ویندوز)
+        if (isWindows) {
+          itemElement.querySelector('.delete-btn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            deleteItem(name);
+          });
+        }
+        
+        // اضافه کردن رویداد برای کلیک روی آیتم (فقط در ویندوز)
+        if (isWindows) {
+          itemElement.addEventListener('click', function() {
+            // برای ویندوز، کلیک معمولی هم پنل مدیریت را باز می‌کند
+            openAdminPanel(name);
+          });
+        }
+        
+        itemsContainer.appendChild(itemElement);
+      }
+    }
+
+    // باز کردن پنل مدیریت
+    function openAdminPanel(itemName = "", isNew = false) {
+      selectedItem = itemName;
+      isNewItem = isNew;
+      
+      document.getElementById('itemName').value = itemName;
+      document.getElementById('itemPrice').value = isNew ? "" : (prices[itemName] || "");
+      
+      // نمایش یا پنهان کردن دکمه حذف
+      document.getElementById('deleteButton').style.display = isNew ? 'none' : 'block';
+      
+      document.getElementById('adminPanel').style.display = 'block';
+      document.getElementById('adminOverlay').style.display = 'block';
+    }
+
+    // بستن پنل مدیریت
+    function closeAdminPanel() {
+      document.getElementById('adminPanel').style.display = 'none';
+      document.getElementById('adminOverlay').style.display = 'none';
+    }
+
+    // ذخیره تغییرات محصول
+    function saveItem() {
+      const newName = document.getElementById('itemName').value.trim();
+      const newPrice = document.getElementById('itemPrice').value;
+      
+      if (!newName) {
+        alert("لطفاً نام محصول را وارد کنید!");
+        return;
+      }
+      
+      if (!newPrice || isNaN(newPrice)) {
+        alert("لطفاً یک قیمت معتبر وارد کنید!");
+        return;
+      }
+      
+      // اگر نام تغییر کرده، محصول قدیمی را حذف و جدید را اضافه می‌کنیم
+      if (selectedItem !== newName && !isNewItem) {
+        delete prices[selectedItem];
+      }
+      
+      // افزودن یا به‌روزرسانی محصول
+      prices[newName] = parseInt(newPrice);
+      savePrices();
+      renderItems();
+      
+      closeAdminPanel();
+      alert(isNewItem ? "محصول جدید با موفقیت افزوده شد!" : "تغییرات با موفقیت ذخیره شد!");
+    }
+
+    // حذف محصول
+    function deleteItem(itemName) {
+      if (confirm(`آیا از حذف "${itemName}" مطمئن هستید؟`)) {
+        delete prices[itemName];
+        savePrices();
+        renderItems();
+        
+        if (itemName === selectedItem) {
+          closeAdminPanel();
+        }
+      }
+    }
+
+    // راه‌اندازی اولیه
+    document.addEventListener('DOMContentLoaded', function() {
+      detectOS();
+      loadPrices();
+      
+      // اضافه کردن رویداد برای دکمه افزودن محصول
+      document.getElementById('addProductBtn').addEventListener('click', function() {
+        openAdminPanel("", true);
+      });
+      
+      // اضافه کردن رویداد برای دکمه‌های پنل مدیریت
+      document.getElementById('saveButton').addEventListener('click', saveItem);
+      document.getElementById('deleteButton').addEventListener('click', function() {
+        deleteItem(selectedItem);
+      });
+      document.getElementById('closeButton').addEventListener('click', closeAdminPanel);
+      
+      // بستن پنل مدیریت با کلیک روی overlay
+      document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
+    });
+  </script>
+</body>
+</html>
